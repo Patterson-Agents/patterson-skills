@@ -1,0 +1,13 @@
+{
+    "github.copilot.enable": {
+        "markdown": true
+    },
+    "chat.useClaudeHooks": true,
+    "chat.checkpoints.showFileChanges": true,
+    "chat.planAgent.defaultModel": "",
+    "chat.editing.explainChanges.enabled": true,
+    "chat.unifiedAgentsBar.enabled": true,
+    "chat.restoreLastPanelSession": true,
+    "chat.viewProgressBadge.enabled": true,
+    "chat.agentSessionProjection.enabled": true
+}
