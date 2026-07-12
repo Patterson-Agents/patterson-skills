@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Patterson Companies — Design System Reference</title>
+
+<!-- Design-system tokens + fonts (relative to repo root). This one file @imports
+     colors, typography, spacing, effects, base — and the real Proxima Nova woff2. -->
+<link rel="stylesheet" href="./styles.css" />
+
+<!-- React runtime + JSX transform, same versions the repo's own template uses. -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- The compiled component library → window.PattersonCompaniesDesignSystem_1f7cbe -->
+<script src="./_ds_bundle.js"></script>
+
+<style>
+  :root { --ref-nav-h: 60px; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--surface-page); }
+
+  /* ---- Top nav ---- */
+  .ref-nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; gap: var(--space-5);
+    height: var(--ref-nav-h);
+    padding-inline: var(--gutter);
+    background: var(--surface-page);
+    border-bottom: var(--border-w) solid var(--border-subtle);
+  }
+  .ref-nav img { height: 22px; width: auto; display: block; }
+  .ref-nav .links { display: flex; gap: 2px; flex-wrap: wrap; margin-left: auto; }
+  .ref-nav .links a {
+    font-size: var(--fs-sm); font-weight: var(--fw-medium);
+    color: var(--text-body); padding: 6px 10px; border-radius: var(--radius-pill);
+  }
+  .ref-nav .links a:hover { color: var(--pat-navy); background: var(--pat-sky-10); }
+
+  /* ---- Layout ---- */
+  main { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--gutter); }
+  section.block { padding-block: var(--space-9); border-bottom: var(--border-w) solid var(--border-subtle); scroll-margin-top: calc(var(--ref-nav-h) + 12px); }
+  section.block:last-child { border-bottom: none; }
+  .kicker { font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-caps); text-transform: uppercase; color: var(--pat-sky); margin-bottom: 6px; }
+  .block > h2 { font-size: var(--fs-h2); color: var(--pat-navy); margin: 0 0 6px; }
+  .block > .lede { font-size: var(--fs-lead); color: var(--text-body); max-width: 60ch; margin: 0 0 var(--space-6); }
+  .subhead { font-size: var(--fs-h5); font-weight: var(--fw-bold); color: var(--pat-navy); margin: var(--space-6) 0 var(--space-3); }
+
+  /* ---- Color swatches ---- */
+  .swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-3); }
+  .swatch { border: var(--border-w) solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; background: var(--surface-card); box-shadow: var(--shadow-xs); }
+  .swatch .chip { height: 76px; }
+  .swatch .meta { padding: 8px 10px 10px; }
+  .swatch .nm { font-size: var(--fs-sm); font-weight: var(--fw-semibold); color: var(--text-heading); }
+  .swatch .vr { font-size: var(--fs-xs); color: var(--text-muted); font-family: var(--font-mono); }
+  .swatch .hx { font-size: var(--fs-xs); color: var(--text-muted); font-family: var(--font-mono); text-transform: uppercase; }
+
+  /* ---- Type specimen ---- */
+  .type-row { display: grid; grid-template-columns: 190px 1fr; gap: var(--space-5); align-items: baseline; padding-block: var(--space-3); border-top: var(--border-w) solid var(--border-subtle); }
+  .type-row .spec { font-size: var(--fs-xs); color: var(--text-muted); font-family: var(--font-mono); line-height: 1.5; }
+  .type-row .spec b { display:block; color: var(--text-heading); font-family: var(--font-sans); font-size: var(--fs-sm); }
+  .type-sample { color: var(--text-heading); min-width: 0; }
+
+  /* ---- Spacing / radii / shadow ---- */
+  .spec-list { display: flex; flex-direction: column; gap: var(--space-2); }
+  .space-row { display: grid; grid-template-columns: 90px 60px 1fr; gap: var(--space-4); align-items: center; }
+  .space-row .lbl { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--text-heading); }
+  .space-row .px { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-muted); }
+  .space-row .bar { height: 16px; background: var(--pat-sky); border-radius: var(--radius-xs); }
+  .radii-grid, .shadow-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-5); }
+  .radii-cell, .shadow-cell { text-align: center; }
+  .radii-box { height: 90px; background: var(--pat-navy-10); border: var(--border-w-thick) solid var(--pat-navy); }
+  .shadow-box { height: 90px; background: var(--surface-card); border-radius: var(--radius-lg); }
+  .cap { margin-top: 10px; font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--text-muted); }
+  .cap b { display:block; font-family: var(--font-sans); font-size: var(--fs-sm); color: var(--text-heading); }
+
+  /* ---- Component demos ---- */
+  .demo { margin-bottom: var(--space-6); }
+  .demo-title { font-size: var(--fs-h4); font-weight: var(--fw-bold); color: var(--pat-navy); margin: 0 0 2px; }
+  .demo-desc { font-size: var(--fs-sm); color: var(--text-muted); margin: 0 0 var(--space-4); max-width: 70ch; }
+  .demo-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; padding: var(--space-5); border: var(--border-w) solid var(--border-subtle); border-radius: var(--radius-lg); background: var(--surface-subtle); }
+  .demo-row + .demo-row { margin-top: var(--space-3); }
+  .demo-row.ondark { background: var(--pat-navy); }
+  .demo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: var(--space-4); }
+  .rowlabel { width: 100%; font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--ls-wide); text-transform: uppercase; color: var(--text-muted); margin-bottom: -6px; }
+  .demo-row.ondark .rowlabel { color: var(--pat-sky-40); }
+
+  footer.ref-foot { padding: var(--space-8) var(--gutter); color: var(--text-muted); font-size: var(--fs-sm); text-align: center; }
+  code.tok { font-family: var(--font-mono); font-size: 0.85em; background: var(--pat-navy-10); color: var(--pat-navy); padding: 1px 6px; border-radius: var(--radius-sm); }
+
+  /* ---- UI-kit browser frames ---- */
+  .kitframe { border: var(--border-w) solid var(--border-default); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); background: var(--surface-card); margin-bottom: var(--space-6); }
+  .kitbar { display: flex; align-items: center; gap: var(--space-3); padding: 9px 14px; background: var(--pat-gray-50); border-bottom: var(--border-w) solid var(--border-subtle); }
+  .kitbar .dots { display: flex; gap: 6px; }
+  .kitbar .dots i { width: 11px; height: 11px; border-radius: 50%; background: var(--pat-gray-300); display: block; }
+  .kitbar .kittitle { font-size: var(--fs-sm); font-weight: var(--fw-semibold); color: var(--text-heading); }
+  .kitbar .kitopen { margin-left: auto; font-size: var(--fs-xs); font-weight: var(--fw-semibold); }
+  .kitframe iframe { display: block; width: 100%; height: 660px; border: 0; background: #fff; }
+  .kitcap { padding: 10px 14px; font-size: var(--fs-sm); color: var(--text-muted); border-top: var(--border-w) solid var(--border-subtle); }
+  .kitcap b { color: var(--text-heading); font-weight: var(--fw-semibold); }
+</style>
+</head>
+<body>
+
+<nav class="ref-nav">
+  <img src="./assets/brand/patterson-logo-navy.svg" alt="Patterson" />
+  <div class="links">
+    <a href="#colors">Colors</a>
+    <a href="#type">Type</a>
+    <a href="#spacing">Spacing</a>
+    <a href="#radii">Radii</a>
+    <a href="#shadows">Shadows</a>
+    <a href="#components">Components</a>
+    <a href="#uikits">UI Kits</a>
+  </div>
+</nav>
+
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState } = React;
+
+/* ---------- UI-kit iframe documents ----------
+   Each composed screen runs in its own iframe so its position:fixed / sticky
+   elements resolve against the iframe viewport, not the reference page. The
+   bundle (loaded via a relative <script src>) exposes window.Header / HomeScreen
+   / StoreHome / STOREFRONT_BRANDS etc., so the mount scripts are plain
+   React.createElement — no Babel or XHR inside the frame (works under file://). */
+const KIT_CDN =
+  '<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"><\/script>' +
+  '<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"><\/script>' +
+  '<script src="_ds_bundle.js"><\/script>';
+
+function kitDoc(extraCss, mountJs) {
+  return '<!doctype html><html lang="en"><head><meta charset="utf-8">' +
+    '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+    '<link rel="stylesheet" href="styles.css">' + KIT_CDN +
+    '<style>html,body{margin:0;background:var(--surface-page)}' + extraCss + '</style>' +
+    '</head><body><div id="root"></div><script>' + mountJs + '<\/script></body></html>';
+}
+
+const MOUNT_CORPORATE = `
+(function(){var h=React.createElement,F=React.Fragment,us=React.useState;
+function App(){var s=us('home'),route=s[0],set=s[1];
+var go=function(r){set(r);window.scrollTo(0,0);};
+var screen=route==='what-we-do'?h(window.WhatWeDoScreen,{onNavigate:go})
+  :route==='newsroom'?h(window.NewsroomScreen,{onNavigate:go})
+  :h(window.HomeScreen,{onNavigate:go});
+return h(F,null,h(window.Header,{route:route,onNavigate:go}),screen,h(window.Footer,null));}
+function start(){if(!(window.PattersonCompaniesDesignSystem_1f7cbe&&window.Header&&window.HomeScreen&&window.WhatWeDoScreen&&window.NewsroomScreen&&window.Footer))return void setTimeout(start,50);
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));}start();})();`;
+
+const STORE_CSS =
+  '.brand-switch{position:fixed;right:16px;bottom:16px;z-index:200;display:flex;gap:4px;padding:4px;background:#fff;border:1px solid var(--border-default);border-radius:var(--radius-pill);box-shadow:var(--shadow-lg)}' +
+  '.brand-switch button{appearance:none;border:none;cursor:pointer;padding:8px 16px;border-radius:var(--radius-pill);font-family:var(--font-sans);font-size:var(--fs-sm);font-weight:600;background:transparent;color:var(--text-muted)}' +
+  '.brand-switch button.on{background:var(--pat-navy);color:#fff}' +
+  '.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);z-index:300;background:var(--pat-navy);color:#fff;padding:12px 20px;border-radius:var(--radius-pill);box-shadow:var(--shadow-lg);font-size:var(--fs-sm);font-weight:600;opacity:0;transition:opacity var(--dur-base) var(--ease-out),transform var(--dur-base) var(--ease-out);pointer-events:none}' +
+  '.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}';
+
+const MOUNT_STORE = `
+(function(){var h=React.createElement,F=React.Fragment,us=React.useState;
+function App(){var b=us('dental'),bk=b[0],setB=b[1];var c=us(0),cart=c[0],setC=c[1];var t=us(false),toast=t[0],setT=t[1];
+var brand=window.STOREFRONT_BRANDS[bk];
+var add=function(){setC(function(x){return x+1;});setT(true);clearTimeout(window.__t);window.__t=setTimeout(function(){setT(false);},1500);};
+var mk=function(k,l){return h('button',{className:bk===k?'on':'',onClick:function(){setB(k);setC(0);window.scrollTo(0,0);}},l);};
+return h(F,null,
+  h(window.StoreHeader,{brand:brand,cartCount:cart,onAddDemo:add}),
+  h(window.StoreHome,{brand:brand,onAdd:add}),
+  h(window.StoreFooter,{brand:brand}),
+  h('div',{className:'brand-switch'},mk('dental','Dental'),mk('vet','Veterinary')),
+  h('div',{className:'toast'+(toast?' show':'')},'Added to cart · '+cart+' item'+(cart===1?'':'s')));}
+function start(){if(!(window.PattersonCompaniesDesignSystem_1f7cbe&&window.STOREFRONT_BRANDS&&window.StoreHeader&&window.StoreHome&&window.StoreFooter))return void setTimeout(start,50);
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));}start();})();`;
+
+const KitFrame = ({ title, href, caption, srcdoc }) => (
+  <div className="kitframe">
+    <div className="kitbar">
+      <span className="dots"><i/><i/><i/></span>
+      <span className="kittitle">{title}</span>
+      <a className="kitopen" href={href} target="_blank" rel="noopener">Open standalone ↗</a>
+    </div>
+    <iframe title={title} srcDoc={srcdoc} loading="lazy" />
+    <div className="kitcap">{caption}</div>
+  </div>
+);
+
+/* ---------- Wait for the compiled component bundle ---------- */
+function boot() {
+  const DS = window.PattersonCompaniesDesignSystem_1f7cbe;
+  if (!DS || !DS.Button) { return void setTimeout(boot, 60); }
+  ReactDOM.createRoot(document.getElementById('root')).render(<App DS={DS} />);
+}
+
+/* ---------- Small inline icons (currentColor) ---------- */
+const I = {
+  arrow: (p) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M5 12h14M13 6l6 6-6 6"/></svg>,
+  plus:  (p) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M12 5v14M5 12h14"/></svg>,
+  search:(p) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" {...p}><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>,
+  bell:  (p) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>,
+  heart: (p) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M19 14c1.5-1.5 3-3.3 3-5.5A4.5 4.5 0 0 0 12 6 4.5 4.5 0 0 0 2 8.5c0 2.2 1.5 4 3 5.5l7 7Z"/></svg>,
+  check: (p) => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M20 6 9 17l-5-5"/></svg>,
+};
+
+/* ---------- Token data (values mirror tokens/colors.css) ---------- */
+const COLOR_GROUPS = [
+  { title: 'Primary — the brand', note: 'Navy & sky are Patterson. Gray carries text; white is the canvas.', items: [
+    ['Navy','--pat-navy','#003767',1], ['Sky','--pat-sky','#00A8E1'], ['Gray','--pat-gray','#58585B',1], ['White','--pat-white','#FFFFFF'],
+  ]},
+  { title: 'Secondary — depth, never dominant', items: [
+    ['Blue','--pat-blue','#147EC2',1], ['Blue light','--pat-blue-light','#6DCFF6'], ['Gray light','--pat-gray-light','#ECECEC'],
+  ]},
+  { title: 'Tertiary — infographics & data only', items: [
+    ['Green','--pat-green','#7BC24D'], ['Teal','--pat-teal','#00817D',1], ['Purple','--pat-purple','#522E91',1],
+  ]},
+  { title: 'Navy tints', items: [
+    ['Navy 80','--pat-navy-80','#335F85',1], ['Navy 60','--pat-navy-60','#6687A4'], ['Navy 40','--pat-navy-40','#99AFC2'], ['Navy 20','--pat-navy-20','#CCD7E1'], ['Navy 10','--pat-navy-10','#E5EBF0'],
+  ]},
+  { title: 'Sky tints', items: [
+    ['Sky 80','--pat-sky-80','#33B9E7'], ['Sky 60','--pat-sky-60','#66CAED'], ['Sky 40','--pat-sky-40','#99DCF3'], ['Sky 20','--pat-sky-20','#CCEDF9'], ['Sky 10','--pat-sky-10','#E5F6FC'],
+  ]},
+  { title: 'Neutral ramp — cool grays', items: [
+    ['Ink','--pat-ink','#1D1D20',1], ['Gray 700','--pat-gray-700','#46464A',1], ['Gray 600','--pat-gray-600','#58585B',1], ['Gray 500','--pat-gray-500','#7C7C80',1], ['Gray 400','--pat-gray-400','#A3A3A7'], ['Gray 300','--pat-gray-300','#C9C9CC'], ['Gray 200','--pat-gray-200','#E2E2E4'], ['Gray 100','--pat-gray-100','#ECECEC'], ['Gray 50','--pat-gray-50','#F6F7F8'],
+  ]},
+  { title: 'Semantic — status, harmonized to palette', items: [
+    ['Success','--pat-success','#00817D',1], ['Info','--pat-info','#147EC2',1], ['Warning','--pat-warning','#D98A00',1], ['Danger','--pat-danger','#C0392B',1],
+  ]},
+];
+
+const TYPE_RAMP = [
+  ['Display','--fs-display', 700, '-0.02em', 'clamp 44–72px', 'Trusted Expertise.'],
+  ['Heading H1','--fs-h1', 700, '-0.02em', 'clamp 36–52px', 'We strengthen the people who keep us healthy'],
+  ['Heading H2','--fs-h2', 700, '-0.01em', 'clamp 28–40px', 'Bold solutions and a personal touch'],
+  ['Heading H3','--fs-h3', 600, '-0.01em', 'clamp 22–28px', 'An indispensable partner, not just a distributor'],
+  ['Heading H4','--fs-h4', 600, '0', '20px', 'Passionate. Focused. People-first.'],
+  ['Heading H5','--fs-h5', 600, '0', '17px', 'Generations of quality customer service'],
+  ['Lead','--fs-lead', 400, '0', '20px', 'The signature big-idea intro paragraph, set larger than body with generous leading.'],
+  ['Body','--fs-body', 400, '0', '16px', 'The default reading size. Cool-gray on white with 1.6 line-height for a calm, corporate measure.'],
+  ['Body small','--fs-sm', 400, '0', '14px', 'Secondary copy, captions in dense UI, table cells and metadata.'],
+  ['Caption','--fs-xs', 400, '0', '12px', 'The smallest supporting text — helper messages and fine print.'],
+];
+
+const SPACE = [['0','--space-0','0'],['1','--space-1','4'],['2','--space-2','8'],['3','--space-3','12'],['4','--space-4','16'],['5','--space-5','24'],['6','--space-6','32'],['7','--space-7','40'],['8','--space-8','48'],['9','--space-9','64'],['10','--space-10','80'],['11','--space-11','96'],['12','--space-12','128']];
+const RADII = [['xs','--radius-xs','2px'],['sm','--radius-sm','4px'],['md','--radius-md','6px'],['lg','--radius-lg','10px'],['xl','--radius-xl','16px'],['2xl','--radius-2xl','24px'],['pill','--radius-pill','999px']];
+const SHADOWS = [['xs','--shadow-xs'],['sm','--shadow-sm'],['md','--shadow-md'],['lg','--shadow-lg'],['xl','--shadow-xl']];
+
+/* ---------- Reusable layout bits ---------- */
+const Block = ({id,kicker,title,lede,children}) => (
+  <section className="block" id={id}>
+    <div className="kicker">{kicker}</div>
+    <h2>{title}</h2>
+    {lede && <p className="lede">{lede}</p>}
+    {children}
+  </section>
+);
+
+const Demo = ({title,desc,children}) => (
+  <div className="demo">
+    <h3 className="demo-title">{title}</h3>
+    {desc && <p className="demo-desc">{desc}</p>}
+    {children}
+  </div>
+);
+
+/* ---------- Interactive wrappers for controlled components ---------- */
+function TabsDemo({ DS }) {
+  const [v, setV] = useState('overview');
+  return <DS.Tabs tabs={[{value:'overview',label:'Overview'},{value:'dental',label:'Dental'},{value:'vet',label:'Veterinary'},{value:'corporate',label:'Corporate'}]} value={v} onChange={setV} />;
+}
+function RadioDemo({ DS }) {
+  const [v, setV] = useState('dental');
+  const opts = [['dental','Dental'],['vet','Veterinary'],['equine','Equine']];
+  return (
+    <div style={{display:'flex',gap:'var(--space-5)'}}>
+      {opts.map(([val,lbl]) => (
+        <DS.Radio key={val} name="market" value={val} label={lbl} checked={v===val} onChange={()=>setV(val)} />
+      ))}
+    </div>
+  );
+}
+
+/* ---------- The reference app ---------- */
+function App({ DS }) {
+  const { Button, IconButton, Badge, Stat, Card, Alert, Input, Select, Checkbox, Switch } = DS;
+  const btnVariants = ['primary','sky','outline','ghost'];
+  const btnSizes = ['sm','md','lg'];
+  const badgeTones = ['navy','sky','green','teal','purple','gray','warning','danger'];
+  const ibVariants = ['solid','sky','ghost','subtle'];
+
+  return (
+    <React.Fragment>
+      {/* ---------- Header ---------- */}
+      <section className="block" style={{paddingTop:'var(--space-8)'}}>
+        <div className="pat-eyebrow">Trusted Expertise · Unrivaled Support</div>
+        <h1 style={{fontSize:'var(--fs-display)', color:'var(--pat-navy)', margin:'10px 0 14px', maxWidth:'16ch'}}>
+          Patterson Companies <span style={{color:'var(--pat-sky)'}}>Design System</span>
+        </h1>
+        <p className="lede" style={{maxWidth:'62ch'}}>
+          A brand-accurate reference for Patterson Companies — oral &amp; animal health distribution, since 1877.
+          Colors, type, spacing, effects and the full component library, rendered live from{' '}
+          <code className="tok">_ds_bundle.js</code> and the token stylesheet.
+        </p>
+        <div style={{display:'flex',gap:'var(--space-4)',flexWrap:'wrap'}}>
+          <Button variant="primary" size="lg" iconRight={<I.arrow/>}>Primary action</Button>
+          <Button variant="outline" size="lg">Secondary</Button>
+        </div>
+      </section>
+
+      {/* ---------- Colors ---------- */}
+      <Block id="colors" kicker="Foundations" title="Color"
+        lede="Navy and sky are the brand. Cool grays carry text and structure. Tertiary green/teal/purple are reserved for data and infographics — never page chrome.">
+        {COLOR_GROUPS.map(g => (
+          <div key={g.title} style={{marginBottom:'var(--space-6)'}}>
+            <div className="subhead" style={{margin:'0 0 4px'}}>{g.title}</div>
+            {g.note && <p style={{margin:'0 0 var(--space-3)',color:'var(--text-muted)',fontSize:'var(--fs-sm)'}}>{g.note}</p>}
+            <div className="swatch-grid">
+              {g.items.map(([nm,vr,hx]) => (
+                <div className="swatch" key={vr}>
+                  <div className="chip" style={{background:`var(${vr})`, borderBottom: hx==='#FFFFFF'?'var(--border-w) solid var(--border-subtle)':'none'}} />
+                  <div className="meta">
+                    <div className="nm">{nm}</div>
+                    <div className="vr">{vr}</div>
+                    <div className="hx">{hx}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </Block>
+
+      {/* ---------- Typography ---------- */}
+      <Block id="type" kicker="Foundations" title="Typography"
+        lede="Proxima Nova (the real Patterson face, loaded here from the repo; Figtree is the free fallback). Bold, tightly-tracked navy headlines; cool-gray body at 1.6 leading.">
+        {TYPE_RAMP.map(([nm,vr,wt,ls,sz,sample]) => (
+          <div className="type-row" key={nm}>
+            <div className="spec"><b>{nm}</b>{vr}<br/>{sz} · {wt} · ls {ls}</div>
+            <div className="type-sample" style={{fontSize:`var(${vr})`, fontWeight:wt, letterSpacing:ls, lineHeight: wt>=600?1.12:1.5}}>{sample}</div>
+          </div>
+        ))}
+        <div className="subhead">Signature devices</div>
+        <div className="demo-grid">
+          <div>
+            <div className="pat-eyebrow" style={{marginBottom:8}}>Eyebrow / overline</div>
+            <div style={{fontSize:'var(--fs-sm)',color:'var(--text-muted)'}}>Uppercase, letter-spaced, sky. Sits above headlines.</div>
+          </div>
+          <div>
+            <Stat value="86M" label="U.S. households have pets" tone="sky" />
+          </div>
+          <div>
+            <Stat value="1877" label="Serving practices since" tone="navy" />
+          </div>
+        </div>
+      </Block>
+
+      {/* ---------- Spacing ---------- */}
+      <Block id="spacing" kicker="Foundations" title="Spacing"
+        lede="A 4px base scale drives padding, gaps and layout rhythm across every component.">
+        <div className="spec-list">
+          {SPACE.map(([n,vr,px]) => (
+            <div className="space-row" key={vr}>
+              <div className="lbl">space/{n}</div>
+              <div className="px">{px}px</div>
+              <div className="bar" style={{width:`var(${vr})`, minWidth: px==='0'?'2px':undefined, opacity: px==='0'?0.3:1}} />
+            </div>
+          ))}
+        </div>
+      </Block>
+
+      {/* ---------- Radii ---------- */}
+      <Block id="radii" kicker="Foundations" title="Radius"
+        lede="Soft corners throughout — 10px on cards, fully-rounded pill buttons.">
+        <div className="radii-grid">
+          {RADII.map(([n,vr,px]) => (
+            <div className="radii-cell" key={vr}>
+              <div className="radii-box" style={{borderRadius:`var(${vr})`}} />
+              <div className="cap"><b>radius/{n}</b>{px}</div>
+            </div>
+          ))}
+        </div>
+      </Block>
+
+      {/* ---------- Shadows ---------- */}
+      <Block id="shadows" kicker="Foundations" title="Elevation &amp; focus"
+        lede="Cool, low-spread, navy-tinted shadows. A clear sky focus ring signals interactivity.">
+        <div className="shadow-grid">
+          {SHADOWS.map(([n,vr]) => (
+            <div className="shadow-cell" key={vr}>
+              <div className="shadow-box" style={{boxShadow:`var(${vr})`}} />
+              <div className="cap"><b>shadow/{n}</b>{vr}</div>
+            </div>
+          ))}
+          <div className="shadow-cell">
+            <div className="shadow-box" style={{boxShadow:'var(--ring-focus)'}} />
+            <div className="cap"><b>ring/focus</b>sky 45%</div>
+          </div>
+          <div className="shadow-cell">
+            <div className="shadow-box" style={{boxShadow:'var(--ring-error)'}} />
+            <div className="cap"><b>ring/error</b>red 35%</div>
+          </div>
+        </div>
+      </Block>
+
+      {/* ---------- Components ---------- */}
+      <Block id="components" kicker="Library" title="Components"
+        lede="All twelve components, rendered live from the compiled library. These are the real components — the same code consuming projects import.">
+
+        {/* Button */}
+        <Demo title="Button" desc="Pill-shaped action button. Primary is solid navy → shifts to sky on hover. Five variants × three sizes, plus icon and disabled states.">
+          {btnVariants.map(v => (
+            <div className="demo-row" key={v}>
+              <div className="rowlabel">variant = {v}</div>
+              {btnSizes.map(s => <Button key={s} variant={v} size={s}>{s.toUpperCase()}</Button>)}
+              <Button variant={v} iconLeft={<I.plus/>}>With icon</Button>
+              <Button variant={v} disabled>Disabled</Button>
+            </div>
+          ))}
+          <div className="demo-row ondark">
+            <div className="rowlabel">variant = onDark</div>
+            {btnSizes.map(s => <Button key={s} variant="onDark" size={s}>{s.toUpperCase()}</Button>)}
+            <Button variant="onDark" iconRight={<I.arrow/>}>Learn more</Button>
+          </div>
+        </Demo>
+
+        {/* IconButton */}
+        <Demo title="IconButton" desc="Circular icon-only control (md meets the 44px hit-target minimum). Four variants × three sizes.">
+          {ibVariants.map(v => (
+            <div className="demo-row" key={v}>
+              <div className="rowlabel">variant = {v}</div>
+              {btnSizes.map(s => <IconButton key={s} variant={v} size={s} label={`${v} ${s}`}><I.bell/></IconButton>)}
+              <IconButton variant={v} label="disabled" disabled><I.heart/></IconButton>
+            </div>
+          ))}
+        </Demo>
+
+        {/* Badge */}
+        <Demo title="Badge" desc="Small uppercase status/label chip. Eight tones, soft-tint or solid.">
+          <div className="demo-row">
+            <div className="rowlabel">soft (default)</div>
+            {badgeTones.map(t => <Badge key={t} tone={t}>{t}</Badge>)}
+          </div>
+          <div className="demo-row">
+            <div className="rowlabel">solid</div>
+            {badgeTones.map(t => <Badge key={t} tone={t} solid>{t}</Badge>)}
+          </div>
+        </Demo>
+
+        {/* Stat */}
+        <Demo title="Stat" desc="Signature big-number device for proof points. Four tones; left or center aligned.">
+          <div className="demo-grid">
+            <Card><Stat value="98%" label="Customers reached in 1–2 day shipping" tone="sky" /></Card>
+            <Card><Stat value="60" label="Fulfillment centers" tone="navy" /></Card>
+            <Card><Stat value="$6.5B" label="Annual net sales" tone="teal" align="center" /></Card>
+            <Card><Stat value="1877" label="Trusted since" tone="green" align="center" /></Card>
+          </div>
+        </Demo>
+
+        {/* Card */}
+        <Demo title="Card" desc="White surface with soft navy-tinted shadow and an optional top accent stripe. Five elevations; interactive lift on hover.">
+          <div className="demo-grid">
+            {['none','xs','sm','md','lg'].map(e => (
+              <Card key={e} elevation={e}>
+                <div style={{fontWeight:700,color:'var(--pat-navy)'}}>elevation = {e}</div>
+                <p style={{margin:'6px 0 0',fontSize:'var(--fs-sm)',color:'var(--text-body)'}}>Soft, low-contrast depth tuned to the brand.</p>
+              </Card>
+            ))}
+            <Card accent="sky" interactive>
+              <Badge tone="sky" solid>New</Badge>
+              <h4 style={{margin:'10px 0 4px'}}>Accent + interactive</h4>
+              <p style={{margin:0,fontSize:'var(--fs-sm)',color:'var(--text-body)'}}>Sky accent stripe; hover to lift.</p>
+            </Card>
+          </div>
+        </Demo>
+
+        {/* Alert */}
+        <Demo title="Alert" desc="Inline message banner with a left accent bar in the tone color. Optional title and dismiss.">
+          <div style={{display:'flex',flexDirection:'column',gap:'var(--space-3)'}}>
+            <Alert tone="info" title="Heads up">Your Advantage Rewards statement is ready to view.</Alert>
+            <Alert tone="success" title="Order placed">98% of orders ship within 1–2 business days.</Alert>
+            <Alert tone="warning">Three items in your cart are low on stock.</Alert>
+            <Alert tone="danger" title="Payment failed" onClose={()=>{}}>We couldn't process your card. Please update billing.</Alert>
+            <Alert tone="brand">We are much more than a distributor — we are an indispensable partner.</Alert>
+          </div>
+        </Demo>
+
+        {/* Tabs */}
+        <Demo title="Tabs" desc="Horizontal tab bar with a sky underline on the active tab.">
+          <div className="demo-row" style={{background:'var(--surface-card)'}}><TabsDemo DS={DS} /></div>
+        </Demo>
+
+        {/* Forms */}
+        <Demo title="Forms — Input, Select, Checkbox, Radio, Switch" desc="Labelled controls with the sky focus ring, helper and error states.">
+          <div className="demo-grid" style={{gridTemplateColumns:'repeat(auto-fill, minmax(280px, 1fr))'}}>
+            <Input label="Practice name" placeholder="e.g. Riverside Dental" helper="As it appears on your account." />
+            <Input label="Search products" placeholder="Search…" iconLeft={<I.search/>} />
+            <Input label="Email" defaultValue="not-an-email" error="Enter a valid email address." required />
+            <Input label="Account ID" defaultValue="Locked field" disabled />
+            <Select label="Market" options={[{value:'dental',label:'Dental'},{value:'vet',label:'Veterinary'},{value:'equine',label:'Equine / Production'}]} />
+          </div>
+          <div className="demo-row" style={{marginTop:'var(--space-4)', background:'var(--surface-card)', gap:'var(--space-6)'}}>
+            <div style={{display:'flex',flexDirection:'column',gap:'var(--space-3)'}}>
+              <div className="rowlabel">Checkbox</div>
+              <Checkbox label="Email me order updates" defaultChecked />
+              <Checkbox label="Enroll in Advantage Rewards" />
+              <Checkbox label="Disabled option" disabled />
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:'var(--space-3)'}}>
+              <div className="rowlabel">Switch</div>
+              <Switch label="Auto-reorder essentials" defaultChecked />
+              <Switch label="Paperless statements" />
+              <Switch label="Disabled" disabled />
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:'var(--space-3)'}}>
+              <div className="rowlabel">Radio — choose a market</div>
+              <RadioDemo DS={DS} />
+            </div>
+          </div>
+        </Demo>
+      </Block>
+
+      {/* ---------- UI Kits ---------- */}
+      <Block id="uikits" kicker="Composed screens" title="UI Kits"
+        lede="Full page recreations assembled from the component library — the corporate website and the brand-switchable storefront. Each runs live in its own frame; interact with them (navigate, switch brand, add to cart).">
+        <Demo title="Corporate Website" desc="Recreation of pattersoncompanies.com — sticky nav, navy hero, content bands and footer. Use the header nav to move between Home, What We Do and Newsroom.">
+          <KitFrame
+            title="patterson — corporate site"
+            href="./ui_kits/corporate-website/index.html"
+            caption={<span><b>Screens:</b> Home · What We Do · Newsroom — built on Button, Card, Stat, Badge, Alert and the tokens.</span>}
+            srcdoc={kitDoc('', MOUNT_CORPORATE)}
+          />
+        </Demo>
+        <Demo title="Storefront — Dental &amp; Veterinary" desc="Patterson e-commerce shell (pattern library v5.7.2), brand-switchable. Toggle Dental / Veterinary at the bottom-right; “Add to cart” updates the header count with a toast.">
+          <KitFrame
+            title="patterson — storefront"
+            href="./ui_kits/storefront/index.html"
+            caption={<span><b>Brand-switchable:</b> the same shell re-skins for Dental and Veterinary via the storefront brand tokens.</span>}
+            srcdoc={kitDoc(STORE_CSS, MOUNT_STORE)}
+          />
+        </Demo>
+      </Block>
+
+      <footer className="ref-foot">
+        Patterson Companies — Design System · rendered from <code className="tok">_ds_bundle.js</code> + <code className="tok">styles.css</code> ·
+        <span> Trusted Expertise. Unrivaled Support.</span>
+      </footer>
+    </React.Fragment>
+  );
+}
+
+boot();
+</script>
+</body>
+</html>
